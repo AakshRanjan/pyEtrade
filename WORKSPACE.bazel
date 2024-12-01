@@ -1,0 +1,36 @@
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "rules_python",
+    sha256 = "95496eb8b14a134b985844cbabe3d67a0caaff02ff07fe6d3aafe232e970bfae",
+    strip_prefix = "rules_python-1.0.0-rc2",
+    url = "https://github.com/bazelbuild/rules_python/releases/download/1.0.0-rc2/rules_python-1.0.0-rc2.tar.gz",
+)
+
+
+load("@rules_python//python:repositories.bzl", "py_repositories")
+
+py_repositories()
+
+
+load("@rules_python//python:defs.bzl", "py_binary", "py_test")
+
+
+load("@rules_python//python:repositories.bzl", "python_register_toolchains")
+
+python_register_toolchains(
+    name = "python_3_10_12",
+    python_version = "3.10.12",
+)
+
+
+# Initialize repositories for all packages in requirements.txt.
+load("@rules_python//python:pip.bzl", "pip_parse")
+pip_parse(
+    name = "pyetrade_pypi",
+    python_interpreter_target = "@python_3_10_12_host//:python",
+    requirements_lock = "//:requirements.txt",
+)
+
+load("@pyetrade_pypi//:requirements.bzl", "install_deps")
+install_deps()

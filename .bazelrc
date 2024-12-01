@@ -1,0 +1,5 @@
+# Disable the Bazel Mod by default.
+build --noenable_bzlmod
+
+# Tag 'local_spawn' can to used to Enable Local Write
+build --spawn_strategy=local --build_tag_filters=local_spawn

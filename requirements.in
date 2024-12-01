@@ -1,0 +1,11 @@
+# Requirements for the Lib.
+pydantic==2.10.2
+requests==2.32.3
+
+# Additional Requirements for the Test.
+setuptools==75.6.0
+twine==6.0.1
+pytest==8.3.4
+
+# Additional Requirements for the Formatter.
+black==24.10.0
